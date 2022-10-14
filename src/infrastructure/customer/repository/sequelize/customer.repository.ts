@@ -8,10 +8,10 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
     await CustomerModel.create({
       id: entity.id,
       name: entity.name,
-      street: entity.Address.street,
-      number: entity.Address.number,
-      zipcode: entity.Address.zip,
-      city: entity.Address.city,
+      street: entity.Address?.street,
+      number: entity.Address?.number,
+      zipcode: entity.Address?.zip,
+      city: entity.Address?.city,
       active: entity.isActive(),
       rewardPoints: entity.rewardPoints,
     });
@@ -50,13 +50,23 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
     }
 
     const customer = new Customer(id, customerModel.name);
-    const address = new Address(
-      customerModel.street,
-      customerModel.number,
-      customerModel.zipcode,
-      customerModel.city
-    );
-    customer.changeAddress(address);
+    if (
+      !!customerModel.street &&
+      !!customerModel.number &&
+      !!customerModel.zipcode &&
+      !!customerModel.city
+    ) {
+      const address = new Address(
+        customerModel.street,
+        customerModel.number,
+        customerModel.zipcode,
+        customerModel.city
+      );
+      customer.changeAddress(address);
+    }
+    if (customerModel.active) {
+      customer.activate();
+    }
     return customer;
   }
 

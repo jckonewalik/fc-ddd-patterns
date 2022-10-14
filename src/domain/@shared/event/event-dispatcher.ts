@@ -5,7 +5,7 @@ import eventInterface from "./event.interface";
 export default class EventDispatcher implements EventDispatcherInterface {
   private eventHandlers: { [eventName: string]: EventHandlerInterface[] } = {};
 
-  get getEventHandlers(): { [eventName: string]: EventHandlerInterface[] } {
+  getEventHandlers(): { [eventName: string]: EventHandlerInterface[] } {
     return this.eventHandlers;
   }
 

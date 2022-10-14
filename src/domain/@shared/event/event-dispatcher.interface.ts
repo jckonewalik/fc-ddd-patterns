@@ -6,4 +6,5 @@ export default interface EventDispatcherInterface {
   register(eventName: string, eventHandler: EventHandlerInterface): void;
   unregister(eventName: string, eventHandler: EventHandlerInterface): void;
   unregisterAll(): void;
+  getEventHandlers(): { [eventName: string]: EventHandlerInterface[] };
 }
